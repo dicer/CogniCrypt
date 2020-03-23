@@ -20,6 +20,7 @@ public class ModelAdvancedMode {
 	private File locationOfCustomLibrary;
 	private File locationOfClaferFile;
 	private File locationOfXSLFile;
+	private File locationOfCryslTemplate;
 	private File locationOfJSONFile;
 	private File locationOfHelpXMLFile;
 	private boolean isCustomLibraryRequired;
@@ -96,6 +97,7 @@ public class ModelAdvancedMode {
 		this.locationOfClaferFile = locationOfClaferFile;
 	}
 
+	
 	/**
 	 * @return the locationOfXSLFile
 	 */
@@ -222,5 +224,14 @@ public class ModelAdvancedMode {
 	 */
 	public void setLocationOfHelpXMLFile(final File locationOfHelpXMLFile) {
 		this.locationOfHelpXMLFile = locationOfHelpXMLFile;
+	}
+
+	public File getLocationOfCryslTemplate() {
+		return locationOfCryslTemplate;
+	}
+
+	public void setLocationOfCryslTemplate(File locationOfCryslTemplate) {
+		System.out.println("Setting location of Crysl Template");
+		this.locationOfCryslTemplate = locationOfCryslTemplate;
 	}
 }

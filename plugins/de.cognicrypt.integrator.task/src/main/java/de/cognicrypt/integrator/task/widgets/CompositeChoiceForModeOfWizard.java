@@ -110,43 +110,13 @@ public class CompositeChoiceForModeOfWizard extends Composite {
 		compositeNonguidedMode.setVisible(false);
 		compositeNonguidedMode.setLayout(new GridLayout(1, false));
 
-		this.compCfr = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LOCATION_OF_CLAFER_FILE, new String[] {"*.cfr"},
-				"Select cfr file that contains the Clafer features", getTheLocalContainerPage(), arg0 -> {
-					final Job compileJob = Job.create("Compile Clafer model", (ICoreRunnable) monitor -> {
-						// UI updates can only be run in the display thread,
-						// so do them via Display.getDefault()
-						Display.getDefault().asyncExec(() -> {
-							CompositeChoiceForModeOfWizard.this.compCfr.getDecFilePath().setDescriptionText(" (compiling...)");
-							CompositeChoiceForModeOfWizard.this.compCfr.getDecFilePath().setImage(UIConstants.DEC_INFORMATION);
-
-							// do the tedious work
-							final String fileToCompile = CompositeChoiceForModeOfWizard.this.compCfr.getText();
-
-							if (ClaferModel.compile(fileToCompile)) {
-								CompositeChoiceForModeOfWizard.this.compCfr.getDecFilePath().setDescriptionText("Compilation successful");
-								CompositeChoiceForModeOfWizard.this.compCfr.getDecFilePath().setImage(UIConstants.DEC_INFORMATION);
-							} else {
-								CompositeChoiceForModeOfWizard.this.compCfr.getDecFilePath().setDescriptionText("Compilation error");
-								CompositeChoiceForModeOfWizard.this.compCfr.getDecFilePath().setImage(UIConstants.DEC_ERROR);
-							}
-						});
-					});
-					// start the asynchronous task
-					compileJob.schedule();
-
-				});
-
-		this.compCfr.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-		final CompositeBrowseForFile compXsl = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LOCATION_OF_XSL_FILE, new String[] {"*.xsl"},
+		
+		final CompositeBrowseForFile compCryslTemplate = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LOCATION_OF_CRYSLTEMPLATE_FILE, new String[] {"*.java"},
 				"Select xsl file that contains the code details", getTheLocalContainerPage());
-		compXsl.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		compCryslTemplate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		final CompositeBrowseForFile compJson = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LOCATION_OF_JSON_FILE, new String[] {"*.json"},
 				"Select json file that contains the high level questions", getTheLocalContainerPage());
 		compJson.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		final CompositeBrowseForFile compositeHelp = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LIBRARY_LOCATION_OF_THE_HELP_FILE,
-				new String[] {"*.xml"}, "Select file that contains the help data", getTheLocalContainerPage());
-		compositeHelp.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 		layout();
 

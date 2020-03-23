@@ -127,8 +127,8 @@ public class CompositeBrowseForFile extends Composite {
 					case Constants.WIDGET_DATA_LIBRARY_LOCATION_OF_THE_TASK:
 						getObjectForDataInNonGuidedMode().setLocationOfCustomLibrary(tempFileVariable);
 						break;
-					case Constants.WIDGET_DATA_LOCATION_OF_CLAFER_FILE:
-						getObjectForDataInNonGuidedMode().setLocationOfClaferFile(new File(CompositeBrowseForFile.this.textBox.getText()));
+					case Constants.WIDGET_DATA_LOCATION_OF_CRYSLTEMPLATE_FILE:
+						getObjectForDataInNonGuidedMode().setLocationOfCryslTemplate(new File(CompositeBrowseForFile.this.textBox.getText()));
 						break;
 					case Constants.WIDGET_DATA_LOCATION_OF_XSL_FILE:
 						getObjectForDataInNonGuidedMode().setLocationOfXSLFile(tempFileVariable);

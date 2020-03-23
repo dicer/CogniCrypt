@@ -300,6 +300,7 @@ public class Constants {
 	public static final String WIDGET_DATA_LIBRARY_LOCATION_OF_THE_TASK = "Location of the Library";
 	public static final String WIDGET_DATA_LIBRARY_LOCATION_OF_THE_HELP_FILE = "Location of the Help file";
 	public static final String WIDGET_DATA_LOCATION_OF_CLAFER_FILE = "Location of the Clafer file";
+	public static final String WIDGET_DATA_LOCATION_OF_CRYSLTEMPLATE_FILE = "Location of the Crysl Template file";
 	public static final String WIDGET_DATA_LOCATION_OF_XSL_FILE = "Location of the XSL file";
 	public static final String WIDGET_DATA_LOCATION_OF_JSON_FILE = "Location of the JSON file";
 	public static final String WIDGET_DATA_LOCATION_OF_HELP_FILE = "Location of the Help file";
@@ -469,6 +470,7 @@ public class Constants {
 	public static final String XSL_FILE_DIRECTORY_PATH = rsrcPath + "XSLTemplates" + innerFileSeparator;
 	public static final String HELP_FILE_DIRECTORY_PATH = rsrcPath + "Help" + innerFileSeparator;
 	public static final String CFR_EXTENSION = ".cfr";
+	public static final String JAVA_EXTENSION = ".java";
 	public static final String CFR_BIN_EXTENSION = ".dat";
 	public static final String JS_EXTENSION = ".js";
 	public static final String JAR_EXTENSION = ".jar";

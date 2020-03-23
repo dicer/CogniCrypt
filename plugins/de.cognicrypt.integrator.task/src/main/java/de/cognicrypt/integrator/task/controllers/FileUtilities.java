@@ -105,6 +105,8 @@ public class FileUtilities {
 		writeJSONFile(questions);
 		return getErrors().toString();
 	}
+	
+	
 
 	private void writeHelpFile(final String helpFileContents) {
 		final File xmlFile = new File(Utils.getResourceFromWithin(Constants.HELP_FILE_DIRECTORY_PATH), getTrimmedTaskName() + Constants.XML_EXTENSION);
@@ -169,6 +171,12 @@ public class FileUtilities {
 
 		}
 
+		return getErrors().toString();
+	}
+	
+	public String writeCryslTemplate(final File cryslTemplateFile, final File jsonFileLocation) {
+		copyFileFromPath(cryslTemplateFile);
+		copyFileFromPath(jsonFileLocation);
 		return getErrors().toString();
 	}
 
@@ -305,16 +313,19 @@ public class FileUtilities {
 			try {
 
 				if (existingFileLocation.getPath().endsWith(Constants.CFR_EXTENSION)) {
-					targetDirectory = new File(Utils.getResourceFromWithin(Constants.CFR_FILE_DIRECTORY_PATH), getTrimmedTaskName() + Constants.CFR_EXTENSION);
+					targetDirectory = new File(Utils.getResourceFromWithin(Constants.CFR_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.CFR_EXTENSION);
 				} else if (existingFileLocation.getPath().endsWith(Constants.JS_EXTENSION)) {
-					targetDirectory = new File(Utils.getResourceFromWithin(Constants.CFR_FILE_DIRECTORY_PATH), getTrimmedTaskName() + Constants.JS_EXTENSION);
+					targetDirectory = new File(Utils.getResourceFromWithin(Constants.CFR_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.JS_EXTENSION);
 				} else if (existingFileLocation.getPath().endsWith(Constants.JSON_EXTENSION)) {
-					targetDirectory = new File(Utils.getResourceFromWithin(Constants.JSON_FILE_DIRECTORY_PATH), getTrimmedTaskName() + Constants.JSON_EXTENSION);
+					targetDirectory = new File(Utils.getResourceFromWithin(Constants.JSON_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.JSON_EXTENSION);
 				} else if (existingFileLocation.getPath().endsWith(Constants.XSL_EXTENSION)) {
-					targetDirectory = new File(Utils.getResourceFromWithin(Constants.XSL_FILE_DIRECTORY_PATH), getTrimmedTaskName() + Constants.XSL_EXTENSION);
+					targetDirectory = new File(Utils.getResourceFromWithin(Constants.XSL_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.XSL_EXTENSION);
 				} else if (existingFileLocation.getPath().endsWith(Constants.XML_EXTENSION)) {
-					targetDirectory = new File(Utils.getResourceFromWithin(Constants.HELP_FILE_DIRECTORY_PATH), getTrimmedTaskName() + Constants.XML_EXTENSION);
-				} else {
+					targetDirectory = new File(Utils.getResourceFromWithin(Constants.HELP_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.XML_EXTENSION);
+				} else if(existingFileLocation.getPath().endsWith(Constants.JAVA_EXTENSION)) {
+					targetDirectory = new File(Utils.getResourceFromWithin(Constants.codeTemplateFolder, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.JAVA_EXTENSION);
+				}
+				else {
 					throw new Exception("Unknown file type.");
 				}
 
@@ -360,13 +371,13 @@ public class FileUtilities {
 		BufferedWriter writer = null;
 		final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try {
-			reader = new BufferedReader(new FileReader(Utils.getResourceFromWithin(Constants.jsonTaskFile)));
+			reader = new BufferedReader(new FileReader(Utils.getResourceFromWithin(Constants.jsonTaskFile, "de.cognicrypt.codegenerator")));
 			final List<Task> tasks = gson.fromJson(reader, new TypeToken<List<Task>>() {}.getType());
 			// Add the new task to the list.
 			tasks.add(task);
 			reader.close();
 
-			writer = new BufferedWriter(new FileWriter(Utils.getResourceFromWithin(Constants.jsonTaskFile)));
+			writer = new BufferedWriter(new FileWriter(Utils.getResourceFromWithin(Constants.jsonTaskFile, "de.cognicrypt.codegenerator")));
 			gson.toJson(tasks, new TypeToken<List<Task>>() {}.getType(), writer);
 			writer.close();
 
@@ -469,6 +480,21 @@ public class FileUtilities {
 		}
 	}
 
+	
+	private void writeCryslTemplateFile(final String cryslTemplateFile) {
+		final File cryslDestFile = new File(Utils.getResourceFromWithin(Constants.codeTemplateFolder), getTrimmedTaskName() + ".java");
+		try {
+			final PrintWriter writer = new PrintWriter(cryslDestFile);
+			writer.println(cryslTemplateFile);
+			writer.flush();
+			writer.close();
+		}
+		catch (final FileNotFoundException e) {
+			Activator.getDefault().logError(e);
+			getErrors().append("There was a problem wrting the Crysl Template data.\n");
+		}
+	}
+	
 	public void updateThePluginXMLFileWithHelpData(final String machineReadableTaskName) {
 		File pluginXMLFile = Utils.getResourceFromWithin(Constants.PLUGIN_XML_FILE);
 		if (!pluginXMLFile.exists()) {

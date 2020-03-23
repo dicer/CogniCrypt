@@ -109,16 +109,6 @@ public class PageForTaskIntegratorWizard extends WizardPage {
 		final IWizardPage nextPage = super.getNextPage();
 		if (nextPage != null) {
 			((WizardPage) nextPage).setPageComplete(true);
-
-			// refresh the TreeViewer when coming to the XSL page
-			if (nextPage.getName().equals(Constants.PAGE_NAME_FOR_XSL_FILE_CREATION)) {
-				if (((PageForTaskIntegratorWizard) nextPage).treeViewer != null) {
-					((PageForTaskIntegratorWizard) nextPage).treeViewer.refresh();
-					((XslPage) nextPage).setTreeViewerInput();
-				}
-			} else if (nextPage.getName().equals(Constants.PAGE_NAME_FOR_CLAFER_FILE_CREATION)) {
-				((ClaferPage) nextPage).initializeClaferModel();
-			}
 		}
 
 		return nextPage;
