@@ -43,10 +43,11 @@ import crypto.analysis.CryptoScanner;
 import crypto.rules.CrySLRule;
 import crypto.rules.CrySLRuleReader;
 import de.cognicrypt.core.Constants;
-import de.cognicrypt.crysl.reader.CrySLModelReader;
+import de.cognicrypt.crysl.reader.CrySLParser;
 import de.cognicrypt.staticanalyzer.Activator;
 import de.cognicrypt.staticanalyzer.results.ResultsCCUIListener;
 import de.cognicrypt.staticanalyzer.utilities.Ruleset;
+import de.cognicrypt.utils.CrySLUtils;
 import de.cognicrypt.utils.Utils;
 import soot.G;
 import soot.PackManager;
@@ -92,7 +93,7 @@ public class SootRunner {
 					if(detectedProvider != null) {
 						rules.clear();
 						String newRulesDirectory = Constants.ECLIPSE_RULES_DIR + Constants.innerFileSeparator + detectedProvider + Constants.innerFileSeparator + 
-													Utils.getRuleVersions(detectedProvider)[Utils.getRuleVersions(detectedProvider).length - 1] + Constants.innerFileSeparator + detectedProvider;
+													CrySLUtils.getRuleVersions(detectedProvider)[CrySLUtils.getRuleVersions(detectedProvider).length - 1] + Constants.innerFileSeparator + detectedProvider;
 						rules.addAll(providerDetection.chooseRules(newRulesDirectory));
 					}
 				}
@@ -109,7 +110,7 @@ public class SootRunner {
  		IPreferenceStore prefStore = Activator.getDefault().getPreferenceStore();
  		
 		try {
-			CrySLModelReader r = new CrySLModelReader(project);
+			CrySLParser r = new CrySLParser(project);
 			for (String path : projectClassPath(JavaCore.create(project))) {
 				List<CrySLRule> readRuleFromBinaryFiles = r.readRulesOutside(path);
 //				readRuleFromBinaryFiles.stream().forEach(e -> System.out.println(e.getClassName()));
