@@ -21,6 +21,7 @@ public class ModelAdvancedMode {
 	private File locationOfClaferFile;
 	private File locationOfXSLFile;
 	private File locationOfCryslTemplate;
+	private File locationOfIconFile;
 	private File locationOfJSONFile;
 	private File locationOfHelpXMLFile;
 	private boolean isCustomLibraryRequired;
@@ -67,6 +68,14 @@ public class ModelAdvancedMode {
 	public void setNameOfTheTask(final String nameOfTheTask) {
 		this.nameOfTheTask = getMachineReadableName(nameOfTheTask); // generate the task name that will be used as the machine readable identifier for the task.
 		setDescription(nameOfTheTask); // This is the human readable name entered by the user.
+	}
+
+	public File getLocationOfIconFile() {
+		return locationOfIconFile;
+	}
+
+	public void setLocationOfIconFile(File locationOfIconFile) {
+		this.locationOfIconFile = locationOfIconFile;
 	}
 
 	/**

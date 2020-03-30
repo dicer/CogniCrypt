@@ -174,9 +174,10 @@ public class FileUtilities {
 		return getErrors().toString();
 	}
 	
-	public String writeCryslTemplate(final File cryslTemplateFile, final File jsonFileLocation) {
+	public String writeCryslTemplate(final File cryslTemplateFile, final File jsonFileLocation, final File iconFile) {
 		copyFileFromPath(cryslTemplateFile);
 		copyFileFromPath(jsonFileLocation);
+		copyFileFromPath(iconFile);
 		return getErrors().toString();
 	}
 
@@ -318,7 +319,9 @@ public class FileUtilities {
 					targetDirectory = new File(Utils.getResourceFromWithin(Constants.CFR_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.JS_EXTENSION);
 				} else if (existingFileLocation.getPath().endsWith(Constants.JSON_EXTENSION)) {
 					targetDirectory = new File(Utils.getResourceFromWithin(Constants.JSON_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.JSON_EXTENSION);
-				} else if (existingFileLocation.getPath().endsWith(Constants.XSL_EXTENSION)) {
+				} else if (existingFileLocation.getPath().endsWith(Constants.PNG_EXTENSION)) {
+					targetDirectory = new File(Utils.getResourceFromWithin(Constants.IMAGE_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.PNG_EXTENSION);
+				}else if (existingFileLocation.getPath().endsWith(Constants.XSL_EXTENSION)) {
 					targetDirectory = new File(Utils.getResourceFromWithin(Constants.XSL_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.XSL_EXTENSION);
 				} else if (existingFileLocation.getPath().endsWith(Constants.XML_EXTENSION)) {
 					targetDirectory = new File(Utils.getResourceFromWithin(Constants.HELP_FILE_DIRECTORY_PATH, "de.cognicrypt.codegenerator"), getTrimmedTaskName() + Constants.XML_EXTENSION);

@@ -14,6 +14,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import de.cognicrypt.codegenerator.question.Question;
+import de.cognicrypt.codegenerator.tasks.Task;
 import de.cognicrypt.core.Constants;
 import de.cognicrypt.integrator.task.controllers.FileUtilities;
 import de.cognicrypt.integrator.task.models.ClaferModel;
@@ -50,14 +51,17 @@ public class TaskIntegrationWizard extends Wizard {
 				getTIPageByName(Constants.PAGE_NAME_FOR_MODE_OF_WIZARD).getCompositeChoiceForModeOfWizard().getObjectForDataInNonGuidedMode();
 		objectForDataInNonGuidedMode.setTask();
 		final FileUtilities fileUtilities = new FileUtilities(objectForDataInNonGuidedMode.getNameOfTheTask());
+		Task task = objectForDataInNonGuidedMode.getTask();
 		if (getContainer().getCurrentPage().getName().equals(Constants.PAGE_NAME_FOR_MODE_OF_WIZARD)) {
 			if (objectForDataInNonGuidedMode.isGuidedModeChosen() == false // && this.objectForDataInNonGuidedMode.isGuidedModeForced() == false
 			) {
 
-				final String fileWriteAttemptResult = fileUtilities.writeCryslTemplate(objectForDataInNonGuidedMode.getLocationOfCryslTemplate(), objectForDataInNonGuidedMode.getLocationOfJSONFile());
+				final String fileWriteAttemptResult = fileUtilities.writeCryslTemplate(objectForDataInNonGuidedMode.getLocationOfCryslTemplate(), objectForDataInNonGuidedMode.getLocationOfJSONFile(), objectForDataInNonGuidedMode.getLocationOfIconFile());
 				// Check if the contents of the provided files are valid.
 				if (fileWriteAttemptResult.equals("")) {
-					fileUtilities.writeTaskToJSONFile(objectForDataInNonGuidedMode.getTask());
+					// Adding the trimmed task name to ensure it matches with the name of the image stored (refer FileUtilities)
+					task.setImage(task.getName().replaceAll("[^A-Za-z0-9]", ""));
+					fileUtilities.writeTaskToJSONFile(task);
 					fileUtilities.updateThePluginXMLFileWithHelpData(objectForDataInNonGuidedMode.getNameOfTheTask());
 					return true;
 				} else {
@@ -85,7 +89,7 @@ public class TaskIntegrationWizard extends Wizard {
 
 			final String fileWriteAttemptResult = fileUtilities.writeFiles(claferModel, questions, xslFileContents, customLibLocation, null);
 			if (fileWriteAttemptResult.equals("")) {
-				fileUtilities.writeTaskToJSONFile(objectForDataInNonGuidedMode.getTask());
+				fileUtilities.writeTaskToJSONFile(task);
 				return true;
 			} else {
 				final MessageBox errorBox = new MessageBox(getShell(), SWT.ERROR | SWT.OK);

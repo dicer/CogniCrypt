@@ -112,12 +112,14 @@ public class CompositeChoiceForModeOfWizard extends Composite {
 
 		
 		final CompositeBrowseForFile compCryslTemplate = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LOCATION_OF_CRYSLTEMPLATE_FILE, new String[] {"*.java"},
-				"Select xsl file that contains the code details", getTheLocalContainerPage());
+				"Select crysl tempplate file that contains the code details", getTheLocalContainerPage());
 		compCryslTemplate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		final CompositeBrowseForFile compJson = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LOCATION_OF_JSON_FILE, new String[] {"*.json"},
 				"Select json file that contains the high level questions", getTheLocalContainerPage());
 		compJson.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
+		final CompositeBrowseForFile compPNG = new CompositeBrowseForFile(compositeNonguidedMode, SWT.NONE, Constants.WIDGET_DATA_LOCATION_OF_PNG_FILE, new String[] {"*.png"},
+				"Select png file that contains the icon for the task you wish to integrate", getTheLocalContainerPage());
+		compPNG.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		layout();
 
 		// moved all the event listeners at the bottom.
